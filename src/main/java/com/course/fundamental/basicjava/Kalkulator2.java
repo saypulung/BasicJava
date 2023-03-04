@@ -90,12 +90,27 @@ public class Kalkulator2 extends javax.swing.JFrame {
         jPanel2.add(buttonMemSub);
 
         buttonPercent.setText("%");
+        buttonPercent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPercentActionPerformed(evt);
+            }
+        });
         jPanel2.add(buttonPercent);
 
         buttonClearExisting.setText("CE");
+        buttonClearExisting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonClearExistingActionPerformed(evt);
+            }
+        });
         jPanel2.add(buttonClearExisting);
 
         buttonClear.setText("C");
+        buttonClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonClearActionPerformed(evt);
+            }
+        });
         jPanel2.add(buttonClear);
 
         buttonBackspace.setText("<=");
@@ -366,6 +381,30 @@ public class Kalkulator2 extends javax.swing.JFrame {
             labelDisplay.setText(labelDisplay.getText().substring(0, lenDisplay - 1));
         }
     }//GEN-LAST:event_buttonBackspaceActionPerformed
+
+    private void buttonPercentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPercentActionPerformed
+        float number = Float.parseFloat(labelDisplay.getText());
+        labelDisplay.setText(String.valueOf(number / 100));
+    }//GEN-LAST:event_buttonPercentActionPerformed
+
+    private void buttonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClearActionPerformed
+        operator = ' ';
+        labelHistory.setText(" ");
+        lastInput = 0;
+        newNumber = true;
+        addToDisplay("0");
+    }//GEN-LAST:event_buttonClearActionPerformed
+
+    private void buttonClearExistingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClearExistingActionPerformed
+        labelDisplay.setText("0");
+        System.out.println("Ada samadengannya " +labelHistory.getText().trim().charAt(labelHistory.getText().length() - 1));
+        if (labelHistory.getText().charAt(labelHistory.getText().length() - 1) == '=') {
+            operator = ' ';
+            labelHistory.setText(" ");
+            lastInput = 0;
+            newNumber = true;
+        }
+    }//GEN-LAST:event_buttonClearExistingActionPerformed
 
     public void addToDisplay(String digit) {
         if (labelDisplay.getText().equals("0") || newNumber == true) {

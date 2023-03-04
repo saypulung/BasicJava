@@ -118,16 +118,25 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="%"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPercentActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonClearExisting">
           <Properties>
             <Property name="text" type="java.lang.String" value="CE"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonClearExistingActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonClear">
           <Properties>
             <Property name="text" type="java.lang.String" value="C"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonClearActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonBackspace">
           <Properties>

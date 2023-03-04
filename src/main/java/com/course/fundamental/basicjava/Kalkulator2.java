@@ -10,6 +10,10 @@ package com.course.fundamental.basicjava;
  */
 public class Kalkulator2 extends javax.swing.JFrame {
 
+    private boolean newNumber = true;
+    private float lastInput;
+    private char operator = ' ';
+
     /**
      * Creates new form Kalkulator2
      */
@@ -27,140 +31,350 @@ public class Kalkulator2 extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        labelDisplay = new javax.swing.JLabel();
+        labelHistory = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
-        jButton20 = new javax.swing.JButton();
-        jButton21 = new javax.swing.JButton();
-        jButton22 = new javax.swing.JButton();
-        jButton23 = new javax.swing.JButton();
-        jButton24 = new javax.swing.JButton();
+        buttonMemClear = new javax.swing.JButton();
+        buttonMemRecall = new javax.swing.JButton();
+        buttonMemAdd = new javax.swing.JButton();
+        buttonMemSub = new javax.swing.JButton();
+        buttonPercent = new javax.swing.JButton();
+        buttonClearExisting = new javax.swing.JButton();
+        buttonClear = new javax.swing.JButton();
+        buttonBackspace = new javax.swing.JButton();
+        buttonSeven = new javax.swing.JButton();
+        buttonEight = new javax.swing.JButton();
+        buttonNine = new javax.swing.JButton();
+        buttonDivide = new javax.swing.JButton();
+        buttonFour = new javax.swing.JButton();
+        buttonFive = new javax.swing.JButton();
+        buttonSix = new javax.swing.JButton();
+        buttonMultiply = new javax.swing.JButton();
+        buttonOne = new javax.swing.JButton();
+        buttonTwo = new javax.swing.JButton();
+        buttonThree = new javax.swing.JButton();
+        buttonSubtract = new javax.swing.JButton();
+        buttonNegate = new javax.swing.JButton();
+        buttonZero = new javax.swing.JButton();
+        buttonEqual = new javax.swing.JButton();
+        buttonPlus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("0");
-        jPanel1.add(jLabel1, java.awt.BorderLayout.SOUTH);
+        labelDisplay.setFont(new java.awt.Font("Consolas", 1, 36)); // NOI18N
+        labelDisplay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelDisplay.setText("0");
+        jPanel1.add(labelDisplay, java.awt.BorderLayout.SOUTH);
 
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jPanel1.add(jLabel5, java.awt.BorderLayout.NORTH);
+        labelHistory.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelHistory.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelHistory.setText(" ");
+        labelHistory.setToolTipText("");
+        jPanel1.add(labelHistory, java.awt.BorderLayout.NORTH);
 
         jPanel2.setLayout(new java.awt.GridLayout(6, 4, 2, 2));
 
-        jButton1.setText("MC");
-        jPanel2.add(jButton1);
+        buttonMemClear.setText("MC");
+        jPanel2.add(buttonMemClear);
 
-        jButton3.setText("MR");
-        jPanel2.add(jButton3);
+        buttonMemRecall.setText("MR");
+        jPanel2.add(buttonMemRecall);
 
-        jButton13.setText("M+");
-        jPanel2.add(jButton13);
+        buttonMemAdd.setText("M+");
+        jPanel2.add(buttonMemAdd);
 
-        jButton9.setText("M-");
-        jPanel2.add(jButton9);
+        buttonMemSub.setText("M-");
+        jPanel2.add(buttonMemSub);
 
-        jButton5.setText("%");
-        jPanel2.add(jButton5);
+        buttonPercent.setText("%");
+        jPanel2.add(buttonPercent);
 
-        jButton2.setText("CE");
-        jPanel2.add(jButton2);
+        buttonClearExisting.setText("CE");
+        jPanel2.add(buttonClearExisting);
 
-        jButton4.setText("C");
-        jPanel2.add(jButton4);
+        buttonClear.setText("C");
+        jPanel2.add(buttonClear);
 
-        jButton6.setText("<-");
-        jPanel2.add(jButton6);
+        buttonBackspace.setText("<=");
+        buttonBackspace.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBackspaceActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonBackspace);
 
-        jButton7.setText("7");
-        jPanel2.add(jButton7);
+        buttonSeven.setText("7");
+        buttonSeven.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSevenActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonSeven);
 
-        jButton8.setText("8");
-        jPanel2.add(jButton8);
+        buttonEight.setText("8");
+        buttonEight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEightActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonEight);
 
-        jButton10.setText("9");
-        jPanel2.add(jButton10);
+        buttonNine.setText("9");
+        buttonNine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNineActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonNine);
 
-        jButton11.setText("/");
-        jPanel2.add(jButton11);
+        buttonDivide.setText("/");
+        buttonDivide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDivideActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonDivide);
 
-        jButton12.setText("4");
-        jPanel2.add(jButton12);
+        buttonFour.setText("4");
+        buttonFour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonFourActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonFour);
 
-        jButton14.setText("5");
-        jPanel2.add(jButton14);
+        buttonFive.setText("5");
+        buttonFive.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonFiveActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonFive);
 
-        jButton15.setText("6");
-        jPanel2.add(jButton15);
+        buttonSix.setText("6");
+        buttonSix.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSixActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonSix);
 
-        jButton16.setText("*");
-        jPanel2.add(jButton16);
+        buttonMultiply.setText("*");
+        buttonMultiply.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMultiplyActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonMultiply);
 
-        jButton17.setText("1");
-        jPanel2.add(jButton17);
+        buttonOne.setText("1");
+        buttonOne.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonOneActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonOne);
 
-        jButton18.setText("2");
-        jPanel2.add(jButton18);
+        buttonTwo.setText("2");
+        buttonTwo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTwoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonTwo);
 
-        jButton19.setText("3");
-        jPanel2.add(jButton19);
+        buttonThree.setText("3");
+        buttonThree.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonThreeActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonThree);
 
-        jButton20.setText("-");
-        jPanel2.add(jButton20);
+        buttonSubtract.setText("-");
+        buttonSubtract.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSubtractActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonSubtract);
 
-        jButton21.setText("+/-");
-        jPanel2.add(jButton21);
+        buttonNegate.setText("+/-");
+        buttonNegate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNegateActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonNegate);
 
-        jButton22.setText("0");
-        jPanel2.add(jButton22);
+        buttonZero.setText("0");
+        buttonZero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonZeroActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonZero);
 
-        jButton23.setText("=");
-        jPanel2.add(jButton23);
+        buttonEqual.setText("=");
+        buttonEqual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEqualActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonEqual);
 
-        jButton24.setText("+");
-        jPanel2.add(jButton24);
+        buttonPlus.setText("+");
+        buttonPlus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPlusActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonPlus);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE))
         );
 
         jPanel1.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonZeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonZeroActionPerformed
+        // TODO add your handling code here:
+        addToDisplay("0");
+    }//GEN-LAST:event_buttonZeroActionPerformed
+
+    private void buttonOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOneActionPerformed
+        addToDisplay("1");
+    }//GEN-LAST:event_buttonOneActionPerformed
+
+    private void buttonTwoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTwoActionPerformed
+        // TODO add your handling code here:
+        addToDisplay("2");
+    }//GEN-LAST:event_buttonTwoActionPerformed
+
+    private void buttonThreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonThreeActionPerformed
+        // TODO add your handling code here:
+        addToDisplay("3");
+    }//GEN-LAST:event_buttonThreeActionPerformed
+
+    private void buttonFourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFourActionPerformed
+        addToDisplay("4");
+    }//GEN-LAST:event_buttonFourActionPerformed
+
+    private void buttonFiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFiveActionPerformed
+        addToDisplay("5");
+    }//GEN-LAST:event_buttonFiveActionPerformed
+
+    private void buttonSixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSixActionPerformed
+        addToDisplay("6");
+    }//GEN-LAST:event_buttonSixActionPerformed
+
+    private void buttonSevenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSevenActionPerformed
+        addToDisplay("7");
+    }//GEN-LAST:event_buttonSevenActionPerformed
+
+    private void buttonEightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEightActionPerformed
+        addToDisplay("8");
+    }//GEN-LAST:event_buttonEightActionPerformed
+
+    private void buttonNineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNineActionPerformed
+        addToDisplay("9");
+    }//GEN-LAST:event_buttonNineActionPerformed
+
+    private void buttonDivideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDivideActionPerformed
+        newNumber = true;
+        lastInput = Float.parseFloat(labelDisplay.getText());
+        operator = '/';
+        labelHistory.setText(labelDisplay.getText() + " / ");
+    }//GEN-LAST:event_buttonDivideActionPerformed
+
+    private void buttonMultiplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMultiplyActionPerformed
+        newNumber = true;
+        lastInput = Float.parseFloat(labelDisplay.getText());
+        operator = 'x';
+        labelHistory.setText(labelDisplay.getText() + " x ");
+    }//GEN-LAST:event_buttonMultiplyActionPerformed
+
+    private void buttonSubtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSubtractActionPerformed
+        newNumber = true;
+        lastInput = Float.parseFloat(labelDisplay.getText());
+        operator = '-';
+        labelHistory.setText(labelDisplay.getText() + " - ");
+    }//GEN-LAST:event_buttonSubtractActionPerformed
+
+    private void buttonPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlusActionPerformed
+        newNumber = true;
+        lastInput = Float.parseFloat(labelDisplay.getText());
+        operator = '+';
+        labelHistory.setText(labelDisplay.getText() + " + ");
+    }//GEN-LAST:event_buttonPlusActionPerformed
+
+    private void buttonEqualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEqualActionPerformed
+        float number = Float.parseFloat(labelDisplay.getText());
+        float result = 0;
+        switch(operator) {
+            case '+':
+                result = lastInput + number;
+                break;
+            case '-':
+                result = lastInput - number;
+                break;
+            case 'x':
+                result = lastInput * number;
+                break;
+            case '/':
+                result = lastInput / number;
+                break;
+            default:
+                break;
+        }
+        labelHistory.setText(labelHistory.getText() + labelDisplay.getText() + " = ");
+        labelDisplay.setText(String.valueOf(result));
+        newNumber = true;
+        lastInput = number;
+    }//GEN-LAST:event_buttonEqualActionPerformed
+
+    private void buttonNegateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNegateActionPerformed
+        if (labelDisplay.getText().charAt(0) == '-') {
+            labelDisplay.setText(labelDisplay.getText().replace('-', ' ').trim());
+        } else {
+            labelDisplay.setText("-" + labelDisplay.getText());
+        }
+    }//GEN-LAST:event_buttonNegateActionPerformed
+
+    private void buttonBackspaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBackspaceActionPerformed
+        int lenDisplay = labelDisplay.getText().length();
+        if (lenDisplay == 1 || (lenDisplay == 2 && labelDisplay.getText().charAt(0) == '-') ) {
+            labelDisplay.setText("0");
+        } else {
+            labelDisplay.setText(labelDisplay.getText().substring(0, lenDisplay - 1));
+        }
+    }//GEN-LAST:event_buttonBackspaceActionPerformed
+
+    public void addToDisplay(String digit) {
+        if (labelDisplay.getText().equals("0") || newNumber == true) {
+            labelDisplay.setText(digit);
+            newNumber = false;
+        } else {
+            labelDisplay.setText(labelDisplay.getText() + digit);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -173,7 +387,7 @@ public class Kalkulator2 extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -198,33 +412,33 @@ public class Kalkulator2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton20;
-    private javax.swing.JButton jButton21;
-    private javax.swing.JButton jButton22;
-    private javax.swing.JButton jButton23;
-    private javax.swing.JButton jButton24;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JButton buttonBackspace;
+    private javax.swing.JButton buttonClear;
+    private javax.swing.JButton buttonClearExisting;
+    private javax.swing.JButton buttonDivide;
+    private javax.swing.JButton buttonEight;
+    private javax.swing.JButton buttonEqual;
+    private javax.swing.JButton buttonFive;
+    private javax.swing.JButton buttonFour;
+    private javax.swing.JButton buttonMemAdd;
+    private javax.swing.JButton buttonMemClear;
+    private javax.swing.JButton buttonMemRecall;
+    private javax.swing.JButton buttonMemSub;
+    private javax.swing.JButton buttonMultiply;
+    private javax.swing.JButton buttonNegate;
+    private javax.swing.JButton buttonNine;
+    private javax.swing.JButton buttonOne;
+    private javax.swing.JButton buttonPercent;
+    private javax.swing.JButton buttonPlus;
+    private javax.swing.JButton buttonSeven;
+    private javax.swing.JButton buttonSix;
+    private javax.swing.JButton buttonSubtract;
+    private javax.swing.JButton buttonThree;
+    private javax.swing.JButton buttonTwo;
+    private javax.swing.JButton buttonZero;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel labelDisplay;
+    private javax.swing.JLabel labelHistory;
     // End of variables declaration//GEN-END:variables
 }
